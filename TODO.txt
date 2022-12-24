@@ -1,0 +1,20 @@
+To implement:
+    Simple behaviors for individuals and pairs:
+    - Seek and Flee
+    - Pursue and Evade
+    - Wander
+    - Arrival
+    - Obstacle Avoidance
+    - Containment
+    - Wall Following
+    - Path Following
+    - Flow Field Following
+    Combined behaviors and groups:
+    - Crowd Path Following
+    - Leader Following
+    - Unaligned Collision Avoidance
+    - Queuing (at a doorway)
+    - Flocking (combining: separation, alignment, cohesion)
+
+- GUI for changing parameters
+- visualize vectors
