@@ -17,4 +17,5 @@ To implement:
     - Flocking (combining: separation, alignment, cohesion)
 
 - GUI for changing parameters
-- visualize vectors
+- use dt when updating pos, vel, acc
+- for path following allow creating paths based on different splines
