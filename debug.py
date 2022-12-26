@@ -1,5 +1,6 @@
 import pygame as pg
-from overwrites import Vector2
+from pygame.math import Vector2
+
 
 
 from pygame_init import SCREEN

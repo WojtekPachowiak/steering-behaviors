@@ -15,7 +15,8 @@ class COLOR:
 BACKGROUND_COLOR = COLOR.BLACK
 
 class VECTOR:
-    from overwrites import Vector2
+    from pygame.math import Vector2
+
 
 
     UP = Vector2(0,1)

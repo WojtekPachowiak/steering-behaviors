@@ -1,8 +1,9 @@
 import pygame as pg
-from overwrites import Vector2
+from pygame.math import Vector2
 
 
-from constant import COLOR
+
+from constant import COLOR, FPS
 import utils
 import math
 from debug import Debug
@@ -21,12 +22,12 @@ class Agent(pg.Surface):
         self.surf.set_colorkey(COLOR.BLACK)
         self.angle = 0
         self.pos = position
-        self.vel = Vector2(0,0)
-        self.acc = Vector2(0,0)
-        self.max_vel_mag = 5
-        self.max_acc_mag = 1
-        self.mass = 1
-        self.facing_rotation_speed = 10
+        self.vel = Vector2(0.,0.)
+        self.acc = Vector2(0.,0.)
+        self.max_vel_mag = 200.
+        self.max_acc_mag = 50
+        self.mass = 1.
+        self.facing_rotation_speed = 10.
 
     def move_local(self, forward, right):
         pass
@@ -35,8 +36,8 @@ class Agent(pg.Surface):
         pass
     
     def update(self):
-        self.vel += self.acc
-        self.pos += self.vel 
+        self.vel += self.acc * Time.delta_time 
+        self.pos += self.vel * Time.delta_time 
 
 
     def rotate(self, angle:float):
@@ -63,10 +64,17 @@ class Agent(pg.Surface):
 
         debug_scale=50
         Debug.line(self.pos, self.vel*debug_scale + self.pos, color=COLOR.GREEN,thickness=5)
-        Debug.line(self.pos, self.acc*debug_scale + self.pos, color= COLOR.BLUE, thickness=5)
+        Debug.line(self.vel*debug_scale, self.acc*debug_scale + self.vel*debug_scale, color= COLOR.BLUE, thickness=5)
 
 
         
-    def seek(self, target_pos:Vector2):
-        desired_vel = (target_pos - self.pos).normalize() * self.max_vel_mag
-        self.acc = (desired_vel - self.vel).normalize() * self.max_acc_mag
+    def seek(self, target_pos:Vector2):     
+        pos_diff = (target_pos - self.pos)
+        if pos_diff.magnitude() > self.max_vel_mag:
+            pos_diff.scale_to_length(self.max_vel_mag)
+
+        vel_diff = (pos_diff - self.vel)
+        if vel_diff.magnitude() > self.max_acc_mag:
+            vel_diff.scale_to_length(self.max_acc_mag)
+
+        self.acc = vel_diff

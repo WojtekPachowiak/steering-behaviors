@@ -1,5 +1,6 @@
 import pygame as pg
-from overwrites import Vector2
+from pygame.math import Vector2
+
 import math
 from debug import Debug
 from pygame_init import SCREEN
@@ -30,12 +31,11 @@ class LinearCyclicPath:
     def evaluate(self, t:float) -> Vector2:
         # modulo 1
         t, _ = math.modf(t)
-        print(t)
         if t == 0:
             return self.control_points[0]
         for k, v in self.ranges.items():
             if v[0] < t and t <= v[1]:
-                return self.control_points[k].lerp(self.control_points[(k+1) % len(self.control_points)], utils.remap(t,v[0],v[1],0,1))
+                return self.control_points[k]
         else:
             raise Exception("path evaluate bug")
 

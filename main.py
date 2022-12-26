@@ -2,7 +2,8 @@ from pygame_init import SCREEN, Time
 import sys
 import pygame as pg
 from constant import WIDTH,HEIGHT, FPS
-from overwrites import Vector2
+from pygame.math import Vector2
+
 
 
 import math
@@ -13,8 +14,8 @@ import utils
 
 from debug import Debug
 
-from imgui.integrations.pygame import PygameRenderer
-import imgui
+# from imgui.integrations.pygame import PygameRenderer
+# import imgui
 
 
 

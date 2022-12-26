@@ -1,6 +1,7 @@
 from constant import WIDTH, HEIGHT, VECTOR
 import pygame as pg
-from overwrites import Vector2
+from pygame.math import Vector2
+
 import math
 
 def remap(old_val, old_min, old_max, new_min, new_max):
