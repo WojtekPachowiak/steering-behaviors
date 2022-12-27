@@ -24,7 +24,7 @@ class Agent(pg.Surface):
         self.pos = position
         self.vel = Vector2(0.,0.)
         self.acc = Vector2(0.,0.)
-        self.max_vel_mag = 200.
+        self.max_speed = 200.
         self.max_acc_mag = 50
         self.mass = 1.
         self.facing_rotation_speed = 10.
@@ -68,13 +68,54 @@ class Agent(pg.Surface):
 
 
         
-    def seek(self, target_pos:Vector2):     
+    def seek(self, target_pos:Vector2, slow_radius=False) -> Vector2: 
+        #vector to target    
         pos_diff = (target_pos - self.pos)
-        if pos_diff.magnitude() > self.max_vel_mag:
-            pos_diff.scale_to_length(self.max_vel_mag)
 
-        vel_diff = (pos_diff - self.vel)
+        # if pos_diff.magnitude() > self.max_vel_mag:
+
+        #calculate desired speed
+        desired_speed = self.max_speed
+        if (slow_radius):
+            radius = 100    
+            distance = pos_diff.length()
+            if distance < radius:
+                desired_speed = utils.remap(distance, 0, radius, 0, self.max_speed)
+        
+        #rename "vector to target" as "desired velocity"
+        desired_vel = pos_diff
+        desired_vel.scale_to_length(desired_speed)
+        vel_diff = (desired_vel - self.vel)
         if vel_diff.magnitude() > self.max_acc_mag:
             vel_diff.scale_to_length(self.max_acc_mag)
 
-        self.acc = vel_diff
+        #rename "velocity difference" as "desired acceleration"
+        desired_acc = vel_diff
+        return desired_acc
+        
+
+    def flee(self, target_pos:Vector2) -> Vector2:
+        'reversed seek'
+        return self.seek(target_pos) * -1
+    
+    def arrive(self, target_pos:Vector2) -> Vector2:
+        'seek with slow radius applied'
+        return self.seek(target_pos, slow_radius=True)
+
+    def wander(self, target_pos:Vector2) -> Vector2:
+        'smooth brownian motion :D'
+        return 0
+
+    def evade():
+        pass
+
+    def pursue():
+        pass
+
+    def follow_path():
+        pass
+
+    def evade_obstacles():
+        pass
+
+

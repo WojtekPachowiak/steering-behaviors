@@ -4,8 +4,8 @@ from pygame.math import Vector2
 
 import math
 
-def remap(old_val, old_min, old_max, new_min, new_max):
-    return (new_max - new_min)*(old_val - old_min) / (old_max - old_min) + new_min
+def remap(val, old_min, old_max, new_min, new_max):
+    return (new_max - new_min)*(val - old_min) / (old_max - old_min) + new_min
 
 def get_mouse_pos():
     'return mouse position flipped on y-axis'

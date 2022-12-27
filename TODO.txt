@@ -19,3 +19,4 @@ To implement:
 - GUI for changing parameters
 - use dt when updating pos, vel, acc
 - for path following allow creating paths based on different splines
+- implement drawin trialing path (infinite or with falloff)
